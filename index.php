@@ -7,22 +7,22 @@
 </head>
 
 <?php
-// Helper function to calculate word frequencies
-function calculateWordFrequencies($inputText, $sortingOrder, $limit) {
+// process.php was used by my classmates but I prefer this method
+function Word_Frequency_Counter($inputText, $sortingOrder, $limit) {
     // // Convert the input text to lowercase
     // $inputText = strtolower($inputText);
 
-    // Tokenize the input text into words
+    // Tokenization process
     $words = str_word_count($inputText, 1);
 
-    // Common stop words to ignore
-    $stopWords = array("the", "and", "in", "your", "on", "if", "is", "it", "to", "and", "you", /* Add more stop words as needed */);
+    // ignoring common words
+    $stopWords = array("the", "and", "in", "your", "on", "if", "is", "it", "to", "and", "you");
 
-    // Filter out stop words and count word occurrences
+    // Filtering out stop words and count word occurrences
     $filteredWords = array_diff($words, $stopWords);
     // $wordFrequencies = array_count_values($filteredWords);
 
-    // Convert the filtered words to lowercase, except for specific words
+    // Convertas the filtered words to lowercase, except for specific words that include "I"
     $filteredWords = array_map(function ($word) {
         if ($word !== 'I' && $word !== "I'll" && $word !== "I'm" && $word !== "I'd") {
             return strtolower($word);
@@ -33,7 +33,7 @@ function calculateWordFrequencies($inputText, $sortingOrder, $limit) {
 
     $wordFrequencies = array_count_values($filteredWords);
 
-    // Sort by frequency based on user's choice
+    // Sorting by frequency
     if ($sortingOrder === 'asc') {
         asort($wordFrequencies);
     } else {
@@ -41,12 +41,13 @@ function calculateWordFrequencies($inputText, $sortingOrder, $limit) {
     }
 
     // Limit the number of words to display
+    // can be used to display the most used word by limiting to 1 and descending
     $wordFrequencies = array_slice($wordFrequencies, 0, $limit, true);
 
     return $wordFrequencies;
 }
 
-// Main code
+// Main body of code
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $inputText = $_POST['text'];
     $sortingOrder = $_POST['sort']; // 'asc' or 'desc'
@@ -55,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($inputText)) {
         echo "Please enter some text.";
     } else {
-        $wordFrequencies = calculateWordFrequencies($inputText, $sortingOrder, $limit);
+        $wordFrequencies = Word_Frequency_Counter($inputText, $sortingOrder, $limit);
     }
 }
 ?>
