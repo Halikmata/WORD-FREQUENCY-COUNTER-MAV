@@ -16,7 +16,7 @@ function Word_Frequency_Counter($inputText, $sortingOrder, $limit) {
     $words = str_word_count($inputText, 1);
 
     // ignoring common words
-    $stopWords = array("the", "and", "in", "your", "on", "if", "is", "it", "to", "and", "you");
+    $stopWords = array("the", "and", "in", "your", "on", "if", "is", "it", "to", "and", "you", "of");
 
     // Filtering out stop words and count word occurrences
     $filteredWords = array_diff($words, $stopWords);
