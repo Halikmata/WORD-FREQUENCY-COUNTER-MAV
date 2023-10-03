@@ -9,7 +9,7 @@
 <?php
 // Helper function to calculate word frequencies
 function calculateWordFrequencies($inputText, $sortingOrder, $limit) {
-    // Convert the input text to lowercase
+    // // Convert the input text to lowercase
     // $inputText = strtolower($inputText);
 
     // Tokenize the input text into words
