@@ -10,7 +10,7 @@
 // Helper function to calculate word frequencies
 function calculateWordFrequencies($inputText, $sortingOrder, $limit) {
     // Convert the input text to lowercase
-    $inputText = strtolower($inputText);
+    // $inputText = strtolower($inputText);
 
     // Tokenize the input text into words
     $words = str_word_count($inputText, 1);
@@ -20,6 +20,17 @@ function calculateWordFrequencies($inputText, $sortingOrder, $limit) {
 
     // Filter out stop words and count word occurrences
     $filteredWords = array_diff($words, $stopWords);
+    // $wordFrequencies = array_count_values($filteredWords);
+
+    // Convert the filtered words to lowercase, except for specific words
+    $filteredWords = array_map(function ($word) {
+        if ($word !== 'I' && $word !== "I'll" && $word !== "I'm" && $word !== "I'd") {
+            return strtolower($word);
+        } else {
+            return $word;
+        }
+    }, $filteredWords);
+
     $wordFrequencies = array_count_values($filteredWords);
 
     // Sort by frequency based on user's choice
